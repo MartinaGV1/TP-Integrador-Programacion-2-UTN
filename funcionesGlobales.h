@@ -1,0 +1,6 @@
+#ifndef FUNCIONESGLOBALES_H_INCLUDED
+#define FUNCIONESGLOBALES_H_INCLUDED
+
+void cargarCadena(char *pal, int tam);
+
+#endif // FUNCIONESGLOBALES_H_INCLUDED
