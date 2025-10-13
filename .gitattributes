@@ -3,6 +3,7 @@
 *.h   text eol=lf
 *.c   text eol=lf
 *.hpp text eol=lf
+*.layout text eol=lf
 
 # Forzar LF en archivos de proyecto de Code::Blocks
 *.cbp text eol=lf
