@@ -4,28 +4,29 @@
 
 class Venta {
     private:
-        int _idVenta;
-        int _idPelicula;
-        int _idSala;
-        int _cantEntradas;
-        float _importeTotal;
-        Fecha _fechaProyeccion;
-        char _dniComprador[9];
-        bool _estado;
+        int idVenta;
+        int idPelicula;
+        int idSala;
+        int cantEntradas;
+        float importeTotal;
+        Fecha fechaProyeccion;
+        char dniComprador[9];
+        bool estado;
 
     public:
         void Cargar();
         void Mostrar();
 
         //setters
-        void setIDVenta(int idVenta);
-        void setIDPelicula(int idPelicula);
-        void setIDSala(int idSala);
-        // El importe se calcula autom ticamente al fijar la cantidad y el precio
-        void setCantEntradas(int cantEntradas);
+        void setIDVenta(int idV);
+        void setIDPelicula(int idP);
+        void setIDSala(int idS);
+        void setCantEntradas(int cantE);
+        //(el importe total deberia cambiar automaticamente al modificar la cantidad de entradas)
+        //void calcularImporteTotal();
         void setFechaProyeccion(Fecha fechaP);
-        void setDNIComprador(const char *dniComprador);
-        void setEstado(bool estado);
+        void setDNIComprador(char comprador);
+        void setEstado(bool est);
 
         //getters
         int getIDVenta();
