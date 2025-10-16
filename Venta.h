@@ -1,27 +1,32 @@
 #ifndef VENTA_H_INCLUDED
-#define VENTA_H_INCLUDED
+#define Venta_H_INCLUDED
 #include "Fecha.h"
 
 class Venta {
     private:
-        int idVenta, idPelicula, idSala, cantEntradas;
-        float importeTotal;
-        Fecha fechaProyeccion;
-        char dniComprador[9];
-        bool estado;
+        int _idVenta;
+        int _idPelicula;
+        int _idSala;
+        int _cantEntradas;
+        float _importeTotal;
+        Fecha _fechaProyeccion;
+        char _dniComprador[9];
+        bool _estado;
+
     public:
         void Cargar();
         void Mostrar();
+
         //setters
-        void setIDVenta(int idV);
-        void setIDPelicula(int idP);
-        void setIDSala(int idS);
-        void setCantEntradas(int cantE);
-        //(el importe total deberia cambiar automaticamente al modificar la cantidad de entradas)
-        //void calcularImporteTotal();
+        void setIDVenta(int idVenta);
+        void setIDPelicula(int idPelicula);
+        void setIDSala(int idSala);
+        // El importe se calcula autom ticamente al fijar la cantidad y el precio
+        void setCantEntradas(int cantEntradas);
         void setFechaProyeccion(Fecha fechaP);
-        void setDNIComprador(char comprador);
-        void setEstado(bool est);
+        void setDNIComprador(const char *dniComprador);
+        void setEstado(bool estado);
+
         //getters
         int getIDVenta();
         int getIDPelicula();
@@ -29,9 +34,8 @@ class Venta {
         int getCantEntradas();
         float getImporteTotal();
         Fecha getFechaProyeccion();
-        char getDNIComprador();
+        const char* getDNIComprador();
         bool getEstado();
 };
-
 
 #endif // VENTA_H_INCLUDED

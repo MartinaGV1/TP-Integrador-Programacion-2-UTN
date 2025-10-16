@@ -3,23 +3,30 @@
 
 class Cliente{
     private:
-        char dni[9], nombre[30], apellido[30], email[30], telefono[12];
-        bool estado;
+        char _dni[9];
+        char _nombre[30];
+        char _apellido[30];
+        char _email[30];
+        char _telefono[12];
+        bool _estado;
+
     public:
         void Cargar();
         void Mostrar();
+
         //setters
         void setDNI(const char *dni);
-        void setNombre(const char *nom);
-        void setApellido(const char *ap);
+        void setNombre(const char *nombre);
+        void setApellido(const char *apellido);
         void setEmail(const char *mail);
-        void setTelefono(const char *tel);
+        void setTelefono(const char *telefono);
+        void setEstado(bool estado);
         //getters
-        char getDNI();
-        char getNombre();
-        char getApellido();
-        char getEmail();
-        char getTelefono();
+        const char* getDNI();
+        const char* getNombre();
+        const char* getApellido();
+        const char* getEmail();
+        const char* getTelefono();
         bool getEstado();
 };
 

@@ -5,30 +5,35 @@
 
 class Pelicula {
     private:
-        int idPelicula, clasificacion;
-        char nombrePelicula[50], nombreDirector[50], genero[50];
-        Fecha fechaEstreno;
-        bool estado;
+        int _idPelicula;
+        int _clasificacion;
+        char _nombrePelicula[50];
+        char _nombreDirector[50];
+        char _genero[50];
+        Fecha _fechaEstreno;
+        bool _estado;
+
     public:
         void Cargar();
         void Mostrar();
+
         //setters
-        void setIDPelicula(int idP);
-        void setClasificacion(int clasif);
-        void setNombrePelicula(const char *nombreP);
-        void setNombreDirector(const char *direc);
-        void setGenero(const char *genre);
-        void setFechaEstreno(Fecha fechaE);
-        void setEstado(bool est);
+        void setIDPelicula(int idPeli);
+        void setClasificacion(int clasificacion);
+        void setNombrePelicula(const char *nombrePeli);
+        void setNombreDirector(const char *nombreDirector);
+        void setGenero(const char *genero);
+        void setFechaEstreno(Fecha fechaEstreno);
+        void setEstado(bool estado);
+
         //getters
         int getIDPelicula();
         int getClasificacion();
-        char getNombrePelicula();
-        char getNombreDirector();
-        char getGenero();
+        const char* getNombrePelicula();
+        const char* getNombreDirector();
+        const char* getGenero();
         Fecha getFechaEstreno();
         bool getEstado();
-
 };
 
 #endif // PELICULAS_H_INCLUDED
