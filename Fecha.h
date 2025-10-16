@@ -3,15 +3,20 @@
 
 class Fecha {
     private:
-        int dia, mes, anio;
+        int _dia;
+        int _mes;
+        int _anio;
+
     public:
-        Fecha(int d = 0, int m = 0, int a = 0);
+        Fecha(int dia = 0, int mes = 0, int anio = 0);
         void Cargar();
         void Mostrar();
+
         //setters
-        void setDia(int d);
-        void setMes(int m);
-        void setAnio(int a);
+        void setDia(int dia);
+        void setMes(int mes);
+        void setAnio(int anio);
+
         //getters
         int getDia();
         int getMes();
