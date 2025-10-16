@@ -3,12 +3,12 @@
 
 class Cliente{
     private:
-        char _dni[9];
-        char _nombre[30];
-        char _apellido[30];
-        char _email[30];
-        char _telefono[12];
-        bool _estado;
+        char dni[9];
+        char nombre[30];
+        char apellido[30];
+        char email[30];
+        char telefono[12];
+        bool estado;
 
     public:
         void Cargar();
@@ -16,11 +16,12 @@ class Cliente{
 
         //setters
         void setDNI(const char *dni);
-        void setNombre(const char *nombre);
-        void setApellido(const char *apellido);
+        void setNombre(const char *nom);
+        void setApellido(const char *ap);
         void setEmail(const char *mail);
-        void setTelefono(const char *telefono);
-        void setEstado(bool estado);
+        void setTelefono(const char *tel);
+        void setEstado(bool est);
+
         //getters
         const char* getDNI();
         const char* getNombre();

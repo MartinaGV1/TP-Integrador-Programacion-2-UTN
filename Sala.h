@@ -14,11 +14,10 @@ class Sala {
         void Mostrar();
 
         //setters
-        void setIDSala(int idSala);
-        void setTipoSala(int tipoSala);
-        void setCapacidadSala(int capacidadSala);
-        void setNombreSala(const char *nombreSala);
-        void setEstado(bool estado);
+        void setIDSala(int idS);
+        void setTipoSala(int tipoS);
+        void setCapacidadSala(int capS);
+        void setNombreSala(const char *nombreS);
 
         //getters
         int getIDSala();
