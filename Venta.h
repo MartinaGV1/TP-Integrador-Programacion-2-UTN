@@ -1,5 +1,4 @@
-#ifndef VENTA_H_INCLUDED
-#define Venta_H_INCLUDED
+#pragma once
 #include "Fecha.h"
 
 class Venta {
@@ -14,14 +13,13 @@ class Venta {
         bool _estado;
 
     public:
-        void Cargar();
-        void Mostrar();
+        Venta();
 
         //setters
         void setIDVenta(int idVenta);
         void setIDPelicula(int idPelicula);
         void setIDSala(int idSala);
-        // El importe se calcula autom ticamente al fijar la cantidad y el precio
+        // El importe se calcula automaticamente al fijar la cantidad y el precio
         void setCantEntradas(int cantEntradas);
         void setFechaProyeccion(Fecha fechaP);
         void setDNIComprador(const char *dniComprador);
@@ -37,5 +35,3 @@ class Venta {
         const char* getDNIComprador();
         bool getEstado();
 };
-
-#endif // VENTA_H_INCLUDED

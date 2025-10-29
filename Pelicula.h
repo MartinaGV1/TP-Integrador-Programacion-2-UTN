@@ -1,6 +1,4 @@
-#ifndef PELICULAS_H_INCLUDED
-#define PELICULAS_H_INCLUDED
-
+#pragma once
 #include "Fecha.h"
 
 class Pelicula {
@@ -14,8 +12,7 @@ class Pelicula {
         bool _estado;
 
     public:
-        void Cargar();
-        void Mostrar();
+        Pelicula();
 
         //setters
         void setIDPelicula(int idPeli);
@@ -34,6 +31,5 @@ class Pelicula {
         const char* getGenero();
         Fecha getFechaEstreno();
         bool getEstado();
-};
 
-#endif // PELICULAS_H_INCLUDED
+};

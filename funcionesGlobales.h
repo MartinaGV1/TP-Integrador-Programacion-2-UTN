@@ -1,6 +1,6 @@
-#ifndef FUNCIONESGLOBALES_H_INCLUDED
-#define FUNCIONESGLOBALES_H_INCLUDED
+#pragma once
 
-void cargarCadena(char *pal, int tam);
+void cargarCadena(char *palabra, int tam);
+bool sonNumeros(const char* cadena);
+bool sonLetras(const char* cadena);
 
-#endif // FUNCIONESGLOBALES_H_INCLUDED

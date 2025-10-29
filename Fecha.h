@@ -1,5 +1,4 @@
-#ifndef FECHA_H_INCLUDED
-#define FECHA_H_INCLUDED
+#pragma once
 
 class Fecha {
     private:
@@ -22,6 +21,3 @@ class Fecha {
         int getMes();
         int getAnio();
 };
-
-
-#endif // FECHA_H_INCLUDED
