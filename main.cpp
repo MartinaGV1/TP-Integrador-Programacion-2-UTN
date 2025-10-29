@@ -1,9 +1,11 @@
 #include <iostream>
+#include "Pelicula.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    Pelicula peli;
+    cout<<peli.getNombrePelicula()<<endl;
     return 0;
 }

@@ -1,30 +1,27 @@
-#ifndef PELICULAS_H_INCLUDED
-#define PELICULAS_H_INCLUDED
-
+#pragma once
 #include "Fecha.h"
 
 class Pelicula {
     private:
-        int idPelicula;
-        int clasificacion;
-        char nombrePelicula[50];
-        char nombreDirector[50];
-        char genero[50];
-        Fecha fechaEstreno;
-        bool estado;
+        int _idPelicula;
+        int _clasificacion;
+        char _nombrePelicula[50];
+        char _nombreDirector[50];
+        char _genero[50];
+        Fecha _fechaEstreno;
+        bool _estado;
 
     public:
-        void Cargar();
-        void Mostrar();
+        Pelicula();
 
         //setters
-        void setIDPelicula(int idP);
-        void setClasificacion(int clasif);
-        void setNombrePelicula(const char *nombreP);
-        void setNombreDirector(const char *direc);
-        void setGenero(const char *genre);
-        void setFechaEstreno(Fecha fechaE);
-        void setEstado(bool est);
+        void setIDPelicula(int idPeli);
+        void setClasificacion(int clasificacion);
+        void setNombrePelicula(const char *nombrePeli);
+        void setNombreDirector(const char *nombreDirector);
+        void setGenero(const char *genero);
+        void setFechaEstreno(Fecha fechaEstreno);
+        void setEstado(bool estado);
 
         //getters
         int getIDPelicula();
@@ -34,6 +31,5 @@ class Pelicula {
         const char* getGenero();
         Fecha getFechaEstreno();
         bool getEstado();
-};
 
-#endif // PELICULAS_H_INCLUDED
+};

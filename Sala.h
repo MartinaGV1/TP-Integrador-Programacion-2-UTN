@@ -1,5 +1,4 @@
-#ifndef SALA_H_INCLUDED
-#define SALA_H_INCLUDED
+#pragma once
 
 class Sala {
     private:
@@ -10,14 +9,14 @@ class Sala {
         bool _estado;
 
     public:
-        void Cargar();
-        void Mostrar();
+        Sala();
 
         //setters
-        void setIDSala(int idS);
-        void setTipoSala(int tipoS);
-        void setCapacidadSala(int capS);
-        void setNombreSala(const char *nombreS);
+        void setIDSala(int idSala);
+        void setTipoSala(int tipoSala);
+        void setCapacidadSala(int capacidadSala);
+        void setNombreSala(const char *nombreSala);
+        void setEstado(bool estado);
 
         //getters
         int getIDSala();
@@ -26,5 +25,3 @@ class Sala {
         const char* getNombreSala();
         bool getEstado();
 };
-
-#endif // SALA_H_INCLUDED

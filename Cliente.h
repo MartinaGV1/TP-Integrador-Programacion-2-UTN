@@ -1,26 +1,24 @@
-#ifndef CLIENTES_H_INCLUDED
-#define CLIENTES_H_INCLUDED
+#pragma once
 
 class Cliente{
     private:
-        char dni[9];
-        char nombre[30];
-        char apellido[30];
-        char email[30];
-        char telefono[12];
-        bool estado;
+        char _dni[9];
+        char _nombre[30];
+        char _apellido[30];
+        char _email[30];
+        char _telefono[12];
+        bool _estado;
 
     public:
-        void Cargar();
-        void Mostrar();
+        Cliente ();
 
         //setters
         void setDNI(const char *dni);
-        void setNombre(const char *nom);
-        void setApellido(const char *ap);
+        void setNombre(const char *nombre);
+        void setApellido(const char *apellido);
         void setEmail(const char *mail);
-        void setTelefono(const char *tel);
-        void setEstado(bool est);
+        void setTelefono(const char *telefono);
+        void setEstado(bool estado);
 
         //getters
         const char* getDNI();
@@ -30,5 +28,3 @@ class Cliente{
         const char* getTelefono();
         bool getEstado();
 };
-
-#endif // CLIENTES_H_INCLUDED
