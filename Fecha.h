@@ -6,10 +6,14 @@ class Fecha {
         int _mes;
         int _anio;
 
+        bool esBisiesto(int anio);
+
     public:
         Fecha(int dia = 0, int mes = 0, int anio = 0);
+
         void Cargar();
         void Mostrar();
+        bool esFechaValida();
 
         //setters
         void setDia(int dia);

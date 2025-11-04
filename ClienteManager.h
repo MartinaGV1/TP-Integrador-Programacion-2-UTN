@@ -1,0 +1,21 @@
+#pragma once
+#include "Cliente.h"
+
+class ClienteManager{
+    private:
+        ClienteArchivo _archivoC;
+        void cargarCliente(Cliente &obj);
+        void mostrarCliente(Cliente obj);
+
+        void buscarPorDNI();
+        void buscarPorNombre();
+        void buscarPorApellido();
+
+    public:
+        void cargar();
+        void mostrarTodos();
+        void buscar();
+        void modificar();
+        void eliminar();
+        void restaurar();
+};
