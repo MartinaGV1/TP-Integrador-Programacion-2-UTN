@@ -1,11 +1,13 @@
 #include <iostream>
-#include "Pelicula.h"
+#include "Menu.h"
 
 using namespace std;
 
 int main()
 {
-    Pelicula peli;
-    cout<<peli.getNombrePelicula()<<endl;
+    Menu menu;
+
+    menu.ejecutar();
+
     return 0;
 }
