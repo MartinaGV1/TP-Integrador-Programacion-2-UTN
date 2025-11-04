@@ -18,7 +18,11 @@ void Sala::setIDSala(int idSala) {
 }
 
 void Sala::setTipoSala(int tipoSala) {
-    _tipoSala = tipoSala;
+    if (tipoSala < 1 || tipoSala > 3) {
+        _tipoSala = 0;
+    } else {
+        _tipoSala = tipoSala;
+    }
 }
 
 void Sala::setCapacidadSala(int capacidadSala) {

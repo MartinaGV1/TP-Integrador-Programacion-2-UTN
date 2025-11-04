@@ -22,6 +22,31 @@ void Fecha::Mostrar() {
     cout << _dia << "/" << _mes << "/" << _anio;
 }
 
+bool Fecha::esBisiesto(int anio) {
+    if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0)) {
+        return true;
+    }
+    return false;
+}
+
+bool Fecha::esFechaValida() {
+    int diasPorMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (_anio < 1900 || _mes < 1 || _mes > 12) {
+        return false;
+    }
+
+    if (_mes == 2 && esBisiesto(_anio)) {
+        diasPorMes[2] = 29;
+    }
+
+    if (_dia < 1 || _dia > diasPorMes[_mes]) {
+        return false;
+    }
+
+    return true;
+}
+
 //setters
 void Fecha::setDia(int dia) {
     _dia = dia;

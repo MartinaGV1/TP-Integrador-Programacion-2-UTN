@@ -19,7 +19,11 @@ void Pelicula::setIDPelicula(int idPeli) {
 }
 
 void Pelicula::setClasificacion(int clasificacion) {
-    _clasificacion = clasificacion;
+    if (clasificacion < 1 || clasificacion > 3) {
+        _clasificacion = 0;
+    } else {
+        _clasificacion = clasificacion;
+    }
 }
 
 void Pelicula::setNombrePelicula(const char *nombrePeli) {
