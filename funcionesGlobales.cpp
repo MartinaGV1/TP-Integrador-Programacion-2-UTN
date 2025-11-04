@@ -5,13 +5,23 @@
 using namespace std;
 
 void cargarCadena(char *palabra, int tam) {
-    do {
+    while (true) {
         cin.getline(palabra, tam);
 
-        if (strlen(palabra) == 0) { // Valida si la cadena est  vac¡a
-            cout << "Error, no puede estar vacio. Intente de nuevo: ";
+        if (cin.fail()) {//Detecta si hay un error
+            cin.clear(); // Limpia el error
+            cin.ignore(1000, '\n');
+            cout << "Excediste el limite de caracteres (" <<tam-1<< "). Intente de nuevo: ";
+            continue;
         }
-    } while (strlen(palabra) == 0); // Repite el bucle si la cadena est  vac¡ia
+
+        if (strlen(palabra) == 0) {
+            cout << "Error, no puede estar vac¡o. Intente de nuevo: ";
+            continue;
+        }
+
+        break; // Todo correcto
+    }
 }
 
 bool sonNumeros(const char *cadena) {
@@ -30,7 +40,7 @@ bool sonLetras(const char *cadena) {
 
     for (int i = 0; cadena[i] != '\0'; i++) {
 
-        char c = cadena[i];//obttiene el caracter acutual
+        char c = cadena[i];//obtiene el caracter actual
 
         bool mayuscula = (c >= 'A' && c <= 'Z');
         bool minuscula = (c >= 'a' && c <= 'z');
@@ -43,4 +53,37 @@ bool sonLetras(const char *cadena) {
         }
     }
     return true; //retorna true si se cumple con todo
+}
+
+// Funcion para verificar que se haya ingresado solo un entero
+int leerEntero(){
+    int opcion;
+    cin>>opcion;
+
+    while(cin.fail()){//verifica si se ingreso un numero
+        cout<<"Ingrese un n£mero valido. Intente de nuevo: ";
+        cin.clear(); //limpia el error
+        cin.ignore(1000, '\n');//ignora 1000 caracteres o hasta el salto de linea
+        cin>>opcion;
+    }
+
+    cin.ignore(1000, '\n');
+    return opcion;
+}
+
+bool validarEmail(const char* email) {
+    //strchr verifica que el mail contenga un "@" y un "."
+    //Busca dentro de una cadena un caracter especifico, si no lo encuentra devuelve null
+    const char *arroba = strchr(email, '@');
+    const char *punto = strrchr(email, '.');
+
+    //verifica si los dos existen en la cadena
+    if (arroba == nullptr || punto == nullptr) {return false;}
+
+    if (punto < arroba) {return false;} //verifica que el punto este despues del arroba
+
+    if (strlen(email) < 5) {return false;}//Verifica que se escriba un minimo de 5 caracteres
+
+    return true;//Si esta todo bien retorna true
+
 }

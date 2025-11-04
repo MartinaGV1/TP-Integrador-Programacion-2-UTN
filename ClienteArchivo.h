@@ -8,7 +8,7 @@ private:
 
 public:
 
-    ClienteArchivo(const char* nombreArchivo = "clientes.dat");
+    ClienteArchivo(const char* nombreArchivo = "Clientes.dat");
 
     bool guardar(Cliente& obj);
     bool modificar(Cliente &obj, int pos);

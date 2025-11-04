@@ -1,5 +1,6 @@
 #pragma once
 #include "Cliente.h"
+#include "ClienteArchivo.h"
 
 class ClienteManager{
     private:

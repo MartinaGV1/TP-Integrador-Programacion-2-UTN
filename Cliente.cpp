@@ -15,12 +15,12 @@ Cliente::Cliente() {
 
 // Setters
 void Cliente::setDNI(const char *dni) {
-    strncpy(_dni, dni, sizeof(_dni) - 1);
-    //_dni[8] = '\0';
+    strncpy(_dni, dni, sizeof(_dni)-1);
+    _dni[sizeof(_dni) - 1] = '\0';
 }
 
 void Cliente::setNombre(const char *nombre) {
-    strncpy(_nombre, nombre, sizeof(_nombre) - 1);
+    strncpy(_nombre, nombre, sizeof(_nombre));
 }
 
 void Cliente::setApellido(const char *apellido) {
