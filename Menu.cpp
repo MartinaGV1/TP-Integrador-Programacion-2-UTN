@@ -37,16 +37,16 @@ void Menu::ejecutar(){
 }
 
 void Menu::menuPrincipal(){
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << "          Menu Principal        " << endl;
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << " 1. Clientes" << endl;
     cout << " 2. Peliculas" << endl;
     cout << " 3. Salas" << endl;
     cout << " 4. Ventas" << endl;
     cout << " 5. Reportes"<<endl;
     cout << " 0. Salir" << endl;
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << "Opcion: ";
 }
 
@@ -55,17 +55,17 @@ void Menu::menuClientes(){
 
     while(true){
         system("cls");
-        cout << "--------------------------------" << endl;
+        cout << "================================" << endl;
         cout << "         Menu Clientes          " << endl;
-        cout << "--------------------------------" << endl;
-        cout << " 1. Cargar Cliente" << endl;
-        cout << " 2. Buscar Cliente" << endl;
-        cout << " 3. Modificar Cliente" << endl;
-        cout << " 4. Eliminar Cliente" << endl;
-        cout << " 5. Restaurar Cliente" << endl;
-        cout << " 6. Mostrar Todos" << endl;
+        cout << "================================" << endl;
+        cout << " 1. Cargar" << endl;
+        cout << " 2. Buscar" << endl;
+        cout << " 3. Modificar" << endl;
+        cout << " 4. Eliminar" << endl;
+        cout << " 5. Restaurar" << endl;
+        cout << " 6. Listar" << endl;
         cout << " 0. Volver al Menu Principal" << endl;
-        cout << "--------------------------------" << endl;
+        cout << "================================" << endl;
         cout << "Opcion: ";
 
         opcion= leerEntero();

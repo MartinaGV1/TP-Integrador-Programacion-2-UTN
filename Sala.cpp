@@ -31,6 +31,7 @@ void Sala::setCapacidadSala(int capacidadSala) {
 
 void Sala::setNombreSala(const char *nombreSala) {
     strncpy(_nombreSala, nombreSala, sizeof(_nombreSala) - 1);
+    _nombreSala[sizeof(_nombreSala) - 1] = '\0';
 }
 
 void Sala::setEstado(bool estado) {

@@ -9,7 +9,7 @@ Fecha::Fecha(int dia, int mes, int anio) {
     _anio = anio;
 }
 
-void Fecha::Cargar() {
+void Fecha::cargar() {
     cout << "  Dia: ";
     cin >> _dia;
     cout << "  Mes: ";
@@ -18,7 +18,7 @@ void Fecha::Cargar() {
     cin >> _anio;
 }
 
-void Fecha::Mostrar() {
+void Fecha::mostrar() {
     cout << _dia << "/" << _mes << "/" << _anio;
 }
 

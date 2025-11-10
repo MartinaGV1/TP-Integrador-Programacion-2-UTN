@@ -6,7 +6,24 @@
 
 using namespace std;
 
-void ClienteManager::cargarCliente(Cliente &obj){
+void ClienteManager::cargar(){
+    system("cls");
+    Cliente nuevoCliente;
+
+    if (!cargarCliente(nuevoCliente)){
+        return;
+    }
+
+    if (_archivoC.guardar(nuevoCliente)){
+
+        cout<<"Cliente cargado exitosamente."<<endl;
+    }
+    else {
+        cout<<"No se pudo cargar el cliente. "<<endl;
+    }
+}
+
+bool ClienteManager::cargarCliente(Cliente &obj){
     char dni[9];
     char nombre[30];
     char apellido[30];
@@ -14,20 +31,36 @@ void ClienteManager::cargarCliente(Cliente &obj){
     char telefono[12];
 
     cout<<"DNI: ";
-    do{
+
+    while (true) {
         cargarCadena(dni, 9);
 
-        if (!sonNumeros(dni)){
-            cout<<"El DNI tiene que ser numerico. Intente de nuevo: ";
-        }
-        else if(strlen(dni)!=8){
-            cout<<"El DNI tiene que contener 8 digitos. Intente de nuevo: ";
-        }
-        else if (_archivoC.buscarPorDNI(dni) != -1){
-            cout<<"Ya existe un cliente con ese DNI. Intente de nuevo: ";
+        if (!sonNumeros(dni) || strlen(dni)!=8) {
+            cout << "El DNI tiene que ser numerico y contener 8 digitos. Intente de nuevo: ";
+            continue;// el continue sirve para omitir el resto del bucle y vuelve al inicio
         }
 
-    } while(!sonNumeros(dni) || strlen(dni)!=8 || _archivoC.buscarPorDNI(dni) != -1);
+        int pos = _archivoC.buscarPorDNI(dni); //Busca si ya existe el dni
+        if (pos == -1) {
+            break;  //Si no existe sale del bucle y sigue con el resto de la carga
+        }
+
+        // vemos si esta activo o dado de baja
+        if (pos != -1) {
+            Cliente existe;
+            _archivoC.leer(existe, pos);
+
+            if (existe.getEstado()) {
+                cout << "Ya existe un cliente con ese DNI." << endl;
+                return false;
+            }
+            else {
+                cout << "El cliente ya existe pero est  inactivo." << endl;
+                return false;
+            }
+        }
+
+    }
     obj.setDNI(dni);
 
     cout<<"Nombre: ";
@@ -71,31 +104,17 @@ void ClienteManager::cargarCliente(Cliente &obj){
     obj.setTelefono(telefono);
 
     obj.setEstado(true);
+    return true;
 }
 
-void ClienteManager::cargar(){
-    system("cls");
-    Cliente nuevoCliente;
-
-    cargarCliente(nuevoCliente);
-
-    if (_archivoC.guardar(nuevoCliente)){
-
-        cout<<"Cliente cargado exitosamente."<<endl;
-    }
-    else {
-        cout<<"No se pudo cargar el cliente. "<<endl;
-    }
-}
-
-void ClienteManager::mostrarCliente(Cliente obj){
+void ClienteManager::mostrarCliente(Cliente &obj){
 
     cout<<"------------------------------"<<endl;
-    cout<<"DNI: "<<obj.getDNI()<<endl;
-    cout<<"Nombre: "<<obj.getNombre()<<endl;
-    cout<<"Apellido: "<<obj.getApellido()<<endl;
-    cout<<"Email: "<<obj.getEmail()<<endl;
-    cout<<"Telefono: "<<obj.getTelefono()<<endl;
+    cout<<" DNI: "<<obj.getDNI()<<endl;
+    cout<<" Nombre: "<<obj.getNombre()<<endl;
+    cout<<" Apellido: "<<obj.getApellido()<<endl;
+    cout<<" Email: "<<obj.getEmail()<<endl;
+    cout<<" Telefono: "<<obj.getTelefono()<<endl;
     cout<<"------------------------------"<<endl;
 }
 
@@ -108,60 +127,122 @@ void ClienteManager::mostrarTodos(){
         cout<<"No hay clientes registrados."<<endl; //si no hay registros, vuelve.
         return;
     }
+    int opcion;
+    while (true) {
+        system("cls");
+        cout << "================================" << endl;
+        cout << "      Listado de clientes       " << endl;
+        cout << "================================" << endl;
+        cout << "1. Activos" << endl;
+        cout << "2. Inactivos" << endl;
+        cout << "3. Mostrar todos" << endl;
+        cout << "0. Volver al menu" << endl;
+        cout << "Opcion: ";
+        cin >> opcion;
+        cin.ignore(1000, '\n');
 
-    cout << "--------------------------------" << endl;
-    cout << "      Listado de clientes       " << endl;
-    cout << "--------------------------------" << endl;
-    for (int i=0; i<total; i++){
-        if (_archivoC.leer(obj, i)){//lee el registro en cada iteracion
+        if (opcion < 0 || opcion > 3) {
+            cout << "Opcion invalida. Intente de nuevo." << endl;
+            system("pause>nul");
+            continue;
+        }
 
-            if (obj.getEstado()){//muestra los que est n activos
-                mostrarCliente(obj);
+        if (opcion == 0) return;
+
+
+        // Contador para saber si hay registros mostrados
+        int mostrados = 0;
+        system ("cls");
+
+        for (int i = 0; i < total; i++){
+            if (_archivoC.leer(obj, i)){
+                switch(opcion){
+                    case 1: // activos
+                        if (obj.getEstado()){
+                            mostrarCliente(obj);
+                            mostrados++;
+                        }
+                        break;
+
+                    case 2: // inactivos
+                        if (!obj.getEstado()){
+                            mostrarCliente(obj);
+                            mostrados++;
+                        }
+                        break;
+
+                    case 3: // todos
+                        mostrarCliente(obj);
+                        mostrados++;
+                        break;
+                }
             }
         }
+
+        // Si no se mostr¢ ninguno, avisamos
+        if (mostrados == 0){
+            if (opcion == 1) cout << "No hay clientes activos." << endl;
+            if (opcion == 2) cout << "No hay clientes inactivos." << endl;
+            if (opcion == 3) cout << "No hay clientes registrados." << endl;
+        }
+
+        system("pause");
     }
 }
 
 void ClienteManager::buscar(){
     int opcion;
-    system("cls");
-    cout << "--------------------------------" << endl;
-    cout << "         Buscar Cliente         " << endl;
-    cout << "--------------------------------" << endl;
-    cout << " 1. Buscar por DNI" << endl;
-    cout << " 2. Buscar por Nombre" << endl;
-    cout << " 3. Buscar por Apellido" << endl;
-    cout << " 0. Volver al Menu Principal" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "Opcion: ";
 
-    opcion = leerEntero();
+    while (true) {
+        system("cls");
+        cout << "================================" << endl;
+        cout << "         Buscar Cliente         " << endl;
+        cout << "================================" << endl;
+        cout << " 1. Buscar por DNI" << endl;
+        cout << " 2. Buscar por Nombre" << endl;
+        cout << " 3. Buscar por Apellido" << endl;
+        cout << " 0. Volver al Menu Principal" << endl;
+        cout << "================================" << endl;
+        cout << "Opcion: ";
 
-    switch(opcion){
-        case 1:
-            buscarPorDNI();
-            break;
-        case 2:
-            buscarPorNombre();
-            break;
-        case 3:
-            buscarPorApellido();
-            break;
-        case 0:
-            break;
-        default:
-            cout<<"Opci¢n incorrecta."<<endl;
-            break;
+        opcion = leerEntero();
+
+        switch(opcion){
+            case 1:
+                buscarPorDNI();
+                break;
+            case 2:
+                buscarPorNombre();
+                break;
+            case 3:
+                buscarPorApellido();
+                break;
+            case 0:
+                return;  // vuelve al menu principal
+            default:
+                cout<<"Opci¢n incorrecta. Intente de nuevo."<<endl;
+                //system("pause>nul");
+                break;
+        }
+
+        system("pause>null");
     }
 }
+
 
 void ClienteManager::buscarPorDNI(){
     char dni[9];
     int pos;
     Cliente obj;
+    system("cls");
 
     cout<<"Ingrese el DNI a buscar: ";
     cargarCadena(dni,9);
+
+    if (!sonNumeros(dni) || strlen(dni) != 8){
+        cout << "DNI invalido. Debe contener solo numeros y tener 8 digitos." << endl;
+        return;
+    }
 
     pos = _archivoC.buscarPorDNI(dni);
 
@@ -171,15 +252,21 @@ void ClienteManager::buscarPorDNI(){
     }
 
     if (_archivoC.leer(obj, pos)){
-        cout<<"--- Cliente encontrado ---"<<endl;
+        cout<<endl;
         mostrarCliente(obj);
-    } else {
-        cout<<"No se encontr¢ el cliente"<<endl;
+
+        if (obj.getEstado() == false){
+            cout << "El cliente se encuentra inactivo" << endl;
+        }
+    }
+    else {
+        cout << "Error al buscar el cliente." << endl;
     }
 
 }
 
 void ClienteManager::buscarPorNombre(){
+    system("cls");
     char nombre[30];
     int total = _archivoC.contarRegistros();
     bool encontrado = false;
@@ -187,11 +274,15 @@ void ClienteManager::buscarPorNombre(){
 
     cout<<"Ingrese el nombre: ";
     cargarCadena(nombre, 30);
+    if (!sonLetras(nombre)){
+        cout << "El nombre debe contener solo letras." << endl;
+        return;
+    }
 
     for (int i=0; i<total; i++){
         if (_archivoC.leer(obj, i)){
 
-            if (strcmp(obj.getNombre(), nombre)==0 && obj.getEstado() == true){
+            if (stricmp(obj.getNombre(), nombre)==0 && obj.getEstado() == true){
                 mostrarCliente(obj);
                 encontrado=true;
             }
@@ -204,6 +295,7 @@ void ClienteManager::buscarPorNombre(){
 }
 
 void ClienteManager::buscarPorApellido(){
+    system("cls");
     char apellido[30];
     int total = _archivoC.contarRegistros();
     bool encontrado = false;
@@ -211,11 +303,15 @@ void ClienteManager::buscarPorApellido(){
 
     cout<<"Ingrese el nombre: ";
     cargarCadena(apellido, 30);
+    if (!sonLetras(apellido)){
+        cout << "El nombre debe contener solo letras." << endl;
+        return;
+    }
 
     for (int i=0; i<total; i++){
         if (_archivoC.leer(obj, i)){
 
-            if (strcmp(obj.getApellido(), apellido)==0 && obj.getEstado() == true){
+            if (stricmp(obj.getApellido(), apellido)==0 && obj.getEstado() == true){
                 mostrarCliente(obj);
                 encontrado=true;
             }
@@ -232,11 +328,20 @@ void ClienteManager::modificar(){
     int pos;
     Cliente obj;
     system("cls");
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << "       Modificar Cliente        " << endl;
-    cout << "--------------------------------" << endl;
-    cout << "Ingrese el dni del cliente: ";
+    cout << "================================" << endl;
+    cout << "Ingrese el dni: ";
     cargarCadena(dni, 9);
+    if (!sonNumeros(dni)) {
+            cout << "El DNI tiene que ser numerico."<<endl;
+            return;
+        }
+
+    if (strlen(dni) != 8) {
+        cout << "El DNI tiene que contener 8 digitos."<<endl;
+        return;
+    }
 
     pos = _archivoC.buscarPorDNI(dni);
     if(pos==-1){
@@ -249,18 +354,22 @@ void ClienteManager::modificar(){
         return;
     }
 
-    cout<<"--- Cliente encontrado ---"<<endl;
+    system("cls");
     mostrarCliente(obj);
 
+    if(!obj.getEstado()){
+        cout <<endl<< "El cliente se encuentra inactivo." << endl;
+        cout << "Debe restaurarlo antes de modificar sus datos." << endl;
+        return;
+    }
+
     int opcion;
-    cout << "--------------------------------" << endl;
     cout << "¨Que  desea modificar?" << endl;
     cout << " 1. Nombre" << endl;
     cout << " 2. Apellido" << endl;
     cout << " 3. Email" << endl;
     cout << " 4. Telefono" << endl;
     cout << " 0. Cancelar" << endl;
-    cout << "--------------------------------" << endl;
     cout << "Opcion: ";
     opcion = leerEntero();
 
@@ -269,7 +378,7 @@ void ClienteManager::modificar(){
 
     switch(opcion){
         case 1:{
-            cout<<"Ingrese el nuevo Nombre: ";
+            cout<<"\nIngrese el nuevo Nombre: ";
 
             do{
                 cargarCadena(aux, 30);
@@ -284,7 +393,7 @@ void ClienteManager::modificar(){
             break;
         }
         case 2:{
-            cout<<"Ingrese el nuevo Apellido: ";
+            cout<<"\nIngrese el nuevo Apellido: ";
 
             do{
                 cargarCadena(aux, 30);
@@ -299,14 +408,20 @@ void ClienteManager::modificar(){
             break;
         }
         case 3:{
-            cout<<"Ingrese el nuevo Email: ";
-            cargarCadena(aux, 30);
+            cout<<"\nIngrese el nuevo Email: ";
+            do{
+                cargarCadena(aux, 30);
+                if(!validarEmail(aux)){
+                    cout<<"El email no es valido. Intente de nuevo: ";
+                }
+            } while(!validarEmail(aux));
+
             obj.setEmail(aux);
             modificado=true;
             break;
         }
         case 4:
-            cout<<"Ingrese el nuevo Telefono: ";
+            cout<<"\nIngrese el nuevo Telefono: ";
             do{
                 cargarCadena(aux, 12);
                 if(!sonNumeros(aux)){
@@ -330,6 +445,8 @@ void ClienteManager::modificar(){
     if (modificado){
         if (_archivoC.modificar(obj, pos)){
             cout<<"Cliente modificado exitosamente."<<endl;
+            cout<<"\nNuevos Cambios:"<<endl;
+            mostrarCliente(obj);
         }else {
             cout<<"No se pudo modificar."<<endl;
         }
@@ -341,12 +458,17 @@ void ClienteManager::eliminar(){
     char dni[9];
     int pos;
     Cliente obj;
+
     system("cls");
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << "       Eliminar Cliente         " << endl;
-    cout << "--------------------------------" << endl;
-    cout << "Ingrese el DNI del cliente a dar de baja: ";
+    cout << "================================" << endl;
+    cout << "Ingrese el DNI: ";
     cargarCadena(dni, 9);
+    if (!sonNumeros(dni) || strlen(dni)!=8) {
+            cout << "El DNI tiene que ser numerico y contener 8 digitos."<<endl;
+            return;
+        }
 
     pos=_archivoC.buscarPorDNI(dni);
 
@@ -355,7 +477,7 @@ void ClienteManager::eliminar(){
         return;
     }
 
-    if(_archivoC.leer(obj, pos)){
+    if(!_archivoC.leer(obj, pos)){
         cout<<"No se pudo leer el registro."<<endl;
         return;
     }
@@ -365,19 +487,18 @@ void ClienteManager::eliminar(){
         return;
     }
 
-    char opcion;
-    cout<<"--- Cliente encontrado ---"<<endl;
     mostrarCliente(obj);
+    cout<<"¨Desea continuar con la baja?"<<endl;
+    cout<<"1. Si"<<endl;
+    cout<<"0. No"<<endl;
+    int opcion = leerEntero();
 
-    cout<<"¨Desea continuar con la baja? (S/N)"<<endl;
-    cin>> opcion;
-
-    if(opcion !='S' && opcion != 's'){
+    if(opcion != 1){
         cout<<"Baja cancelada."<<endl;
         return;
     }
 
-    obj.setEstado(true);
+    obj.setEstado(false);
 
     if(_archivoC.modificar(obj, pos)){
         cout<<"Cliente "<<obj.getDNI()<<" eliminado exitosamente."<<endl;
@@ -392,11 +513,16 @@ void ClienteManager::restaurar(){
     Cliente obj;
 
     system("cls");
-    cout << "--------------------------------" << endl;
+    cout << "================================" << endl;
     cout << "      Restaurar Cliente         " << endl;
-    cout << "--------------------------------" << endl;
-    cout << "Ingrese el DNI del cliente: ";
+    cout << "================================" << endl;
+    cout << "Ingrese el DNI: ";
+
     cargarCadena(dni, 9);
+    if (!sonNumeros(dni) || strlen(dni)!=8) {
+            cout << "El DNI tiene que ser numerico y contener 8 digitos."<<endl;
+            return;
+    }
 
     pos=_archivoC.buscarPorDNI(dni);
 
