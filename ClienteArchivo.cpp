@@ -11,42 +11,42 @@ ClienteArchivo::ClienteArchivo(const char* nombreArchivo) {
 }
 
 bool ClienteArchivo::guardar(Cliente& obj) {
-    FILE *p;
-    p = fopen(_nombreArchivo, "ab");
+    FILE *pFile;
+    pFile = fopen(_nombreArchivo, "ab");
 
-    if (p == nullptr) { return false; }
+    if (pFile == nullptr) { return false; }
 
-    bool escribio = fwrite(&obj, sizeof(Cliente), 1, p);
-    fclose(p);
+    bool escribio = fwrite(&obj, sizeof(Cliente), 1, pFile);
+    fclose(pFile);
 
     return escribio;
 }
 
 bool ClienteArchivo::modificar(Cliente& obj, int pos) {
-    FILE *p;
-    p = fopen(_nombreArchivo, "rb+");
+    FILE *pFile;
+    pFile = fopen(_nombreArchivo, "rb+");
 
-    if (p == nullptr) { return false; }
+    if (pFile == nullptr) { return false; }
 
-    fseek(p, pos * sizeof(Cliente), SEEK_SET);
+    fseek(pFile, pos * sizeof(Cliente), SEEK_SET);
 
     // Escribe el objeto modificado
-    bool escribio = fwrite(&obj, sizeof(Cliente), 1, p);
-    fclose(p);
+    bool escribio = fwrite(&obj, sizeof(Cliente), 1, pFile);
+    fclose(pFile);
 
     return escribio;
 }
 
 bool ClienteArchivo::leer(Cliente &obj, int pos) {
-    FILE *p;
-    p = fopen(_nombreArchivo, "rb");
+    FILE *pFile;
+    pFile = fopen(_nombreArchivo, "rb");
 
-    if (p == nullptr) { return false; }
+    if (pFile == nullptr) { return false; }
 
-    fseek(p, pos * sizeof(Cliente), SEEK_SET);
+    fseek(pFile, pos * sizeof(Cliente), SEEK_SET);
 
-    bool leyo = fread(&obj, sizeof(Cliente), 1, p);
-    fclose(p);
+    bool leyo = fread(&obj, sizeof(Cliente), 1, pFile);
+    fclose(pFile);
 
     return leyo;
 }
@@ -55,7 +55,7 @@ int ClienteArchivo::contarRegistros() {
     FILE *p;
     p = fopen(_nombreArchivo, "rb");
 
-    if (p == nullptr) { return false; }
+    if (p == nullptr) { return 0; }
 
     fseek(p, 0, SEEK_END); // Mueve el puntero al final del archivo
     int tam = ftell(p);

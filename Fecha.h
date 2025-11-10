@@ -11,8 +11,8 @@ class Fecha {
     public:
         Fecha(int dia = 0, int mes = 0, int anio = 0);
 
-        void Cargar();
-        void Mostrar();
+        void cargar();
+        void mostrar();
         bool esFechaValida();
 
         //setters

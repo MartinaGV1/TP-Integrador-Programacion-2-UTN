@@ -26,16 +26,19 @@ void Pelicula::setClasificacion(int clasificacion) {
     }
 }
 
-void Pelicula::setNombrePelicula(const char *nombrePeli) {
-    strncpy(_nombrePelicula, nombrePeli, sizeof(_nombrePelicula) - 1);
+void Pelicula::setNombrePelicula(const char *nombre){
+    strncpy(_nombrePelicula, nombre, sizeof(_nombrePelicula) - 1); //strncpy(destino, origen, tama¤o - 1)
+    _nombrePelicula[sizeof(_nombrePelicula) - 1] = '\0'; //sizeof(_campo) - 1 = '\0' Se asegura que la cadena termine bien
 }
 
-void Pelicula::setNombreDirector(const char *nombreDirector) {
-    strncpy(_nombreDirector, nombreDirector, sizeof(_nombreDirector) - 1);
+void Pelicula::setNombreDirector(const char *director){
+    strncpy(_nombreDirector, director, sizeof(_nombreDirector) - 1);
+    _nombreDirector[sizeof(_nombreDirector) - 1] = '\0';
 }
 
-void Pelicula::setGenero(const char *genero) {
+void Pelicula::setGenero(const char *genero){
     strncpy(_genero, genero, sizeof(_genero) - 1);
+    _genero[sizeof(_genero) - 1] = '\0';
 }
 
 void Pelicula::setFechaEstreno(Fecha fechaEstreno) {

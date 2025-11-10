@@ -36,8 +36,9 @@ void Venta::setFechaProyeccion(Fecha fechaP) {
     _fechaProyeccion = fechaP;
 }
 
-void Venta::setDNIComprador(const char *dniComprador) {
+void Venta::setDNIComprador(const char *dniComprador){
     strncpy(_dniComprador, dniComprador, sizeof(_dniComprador) - 1);
+    _dniComprador[sizeof(_dniComprador) - 1] = '\0';
 }
 
 void Venta::setEstado(bool estado) {
