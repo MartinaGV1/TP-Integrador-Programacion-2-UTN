@@ -22,21 +22,14 @@ void PeliculaManager::cargar(){
 bool PeliculaManager::cargarPelicula(Pelicula &obj){
     int id = _archivoP.asignarID();
     obj.setIDPelicula(id);
-    id = leerEntero();
     cout<<"ID asignado: "<<id<<endl;
 
     char nombre[50];
     cout << "Nombre de la pel¡cula: ";
-    do{
-        cargarCadena(nombre, 50);
-        if (!sonLetras(nombre)){
-            cout<<"El nombre tiene que tener letras. Intente de nuevo: ";
-        }
-
-    } while (!sonLetras(nombre));
+    cargarCadena(nombre, 50);
     obj.setNombrePelicula(nombre);
 
-    char director[60];
+    char director[50];
     cout << "Director: ";
     do{
         cargarCadena(director, 50);
@@ -50,7 +43,7 @@ bool PeliculaManager::cargarPelicula(Pelicula &obj){
     int genero;
     cout << "Genero:" << endl;
     cout << " 1) Accion" << endl;
-    cout << " 2) Aventura" << endl;
+    cout << " 2) Animacion" << endl;
     cout << " 3) Ciencia Ficcion" << endl;
     cout << " 4) Comedia" << endl;
     cout << " 5) Drama" << endl;
@@ -69,7 +62,7 @@ bool PeliculaManager::cargarPelicula(Pelicula &obj){
     //Seteamos el genero al elegir la opcion
     switch(genero){
         case 1: obj.setGenero("Accion"); break;
-        case 2: obj.setGenero("Aventura"); break;
+        case 2: obj.setGenero("Animacion"); break;
         case 3: obj.setGenero("Ciencia Ficcion"); break;
         case 4: obj.setGenero("Comedia"); break;
         case 5: obj.setGenero("Drama"); break;
@@ -80,17 +73,18 @@ bool PeliculaManager::cargarPelicula(Pelicula &obj){
     }
 
     int clasificacion;
-    do{
-        cout << "\nClasificacion:"<<endl;;
+    do {
+        cout << "\nClasificacion:\n";
         cout << " 1) ATP\n";
         cout << " 2) +13\n";
         cout << " 3) +18\n";
         cout << "Opcion: ";
-        clasificacion=leerEntero();
+        clasificacion = leerEntero();
 
-        cout << "Opcion invalida. Intente de nuevo."<<endl;
-
-    }while(clasificacion <1 || clasificacion >3);
+        if (clasificacion < 1 || clasificacion > 3) {
+            cout << "Opcion invalida. Intente de nuevo.\n";
+        }
+    } while (clasificacion < 1 || clasificacion > 3);
     obj.setClasificacion(clasificacion);
 
     Fecha fecha;
@@ -168,19 +162,21 @@ void PeliculaManager::mostrarTodas(){
 
 void PeliculaManager::mostrarPelicula(Pelicula &obj){
     cout << "--------------------------------" << endl;
-    cout << "ID: "<<obj.getIDPelicula()<<endl;
-    cout << "Pelicula: "<<obj.getNombrePelicula()<<endl;
-    cout << "Director: "<<obj.getNombreDirector()<<endl;
-    cout << "Clasificacion: "<<clasificacionToStr(obj.getClasificacion())<<endl;
-    cout << "Fecha de Estreno: ";
+    cout << " ID: "<<obj.getIDPelicula()<<endl;
+    cout << " Pelicula: "<<obj.getNombrePelicula()<<endl;
+    cout << " Director: "<<obj.getNombreDirector()<<endl;
+    cout << " Genero: "<<obj.getGenero()<<endl;
+    cout << " Clasificacion: "<<clasificacionToStr(obj.getClasificacion())<<endl;
+    cout << " Fecha de Estreno: ";
     obj.getFechaEstreno().mostrar();
-    cout << "--------------------------------" << endl;
+    cout << "\n--------------------------------" << endl;
 }
 
 void PeliculaManager::buscar(){
     int opcion;
 
     while(true){
+        system("cls");
         cout << "================================" << endl;
         cout << "        Buscar Pelicula         " << endl;
         cout << "================================" << endl;
@@ -192,27 +188,33 @@ void PeliculaManager::buscar(){
         cout << " 0. Volver" << endl;
         cout << "================================" << endl;
         cout << "Opcion: ";
-    }
 
-    opcion=leerEntero();
+        opcion = leerEntero();
 
-    switch(opcion){
-        case 1:
-            buscarPorID();
-            break;
-        case 2:
-            buscarPorNombre();
-            break;
-        case 3:
-            buscarPorDirector();
-            break;
-        case 4:
-            buscarPorGenero();
-            break;
+        switch(opcion){
+            case 1:
+                buscarPorID();
+                break;
+            case 2:
+                buscarPorNombre();
+                break;
+            case 3:
+                buscarPorDirector();
+                break;
+            case 4:
+                buscarPorGenero();
+                break;
+            case 5:
+                buscarPorClasificacion();
+                break;
+            case 0:
+                return;
+            default:
+                cout << "Opcion incorrecta." << endl;
+                break;
+        }
 
-        default:
-            cout<<"Opcion incorrecta."<<endl;
-            break;
+        system("pause");
     }
 }
 
@@ -227,7 +229,7 @@ void PeliculaManager::buscarPorID(){
 
     int pos = _archivoP.buscarPorID(id);
 
-    if (pos=-1){
+    if (pos == -1){
         cout<<"No se encontro ninguna pelicula."<<endl;
         return;
     }
@@ -268,18 +270,18 @@ void PeliculaManager::buscarPorNombre(){
         cout<<"No se encontraron peliculas con ese nombre."<<endl;
     }
 
-    system("pause");
+    //system("pause");
 }
 
 void PeliculaManager::buscarPorDirector(){
     system("cls");
-    char director[60];
+    char director[50];
     Pelicula obj;
     int total= _archivoP.contarRegistros();
     bool encontrado=false;
 
     cout<<"Ingrese la Pelicula: ";
-    cargarCadena(director, 60);
+    cargarCadena(director, 50);
 
     for(int i=0; i<total; i++){
         if (_archivoP.leer(obj,i)){
@@ -294,7 +296,7 @@ void PeliculaManager::buscarPorDirector(){
         cout<<"No se encontraron peliculas dirigidas por "<<director<<"."<<endl;
     }
 
-    system("pause");
+    //system("pause");
 }
 
 void PeliculaManager::buscarPorGenero(){
@@ -308,7 +310,7 @@ void PeliculaManager::buscarPorGenero(){
     cout << "       Buscar por Genero        " << endl;
     cout << "================================" << endl;
     cout << " 1) Accion" << endl;
-    cout << " 2) Aventura" << endl;
+    cout << " 2) Animacion" << endl;
     cout << " 3) Ciencia Ficcion" << endl;
     cout << " 4) Comedia" << endl;
     cout << " 5) Drama" << endl;
@@ -330,7 +332,7 @@ void PeliculaManager::buscarPorGenero(){
 
     switch(opcGenero){
         case 1: generoBuscado = ("Accion"); break;
-        case 2: generoBuscado = ("Aventura"); break;
+        case 2: generoBuscado = ("Animacion"); break;
         case 3: generoBuscado = ("Ciencia Ficcion"); break;
         case 4: generoBuscado = ("Comedia"); break;
         case 5: generoBuscado = ("Drama"); break;
@@ -341,11 +343,10 @@ void PeliculaManager::buscarPorGenero(){
     }
 
     system("cls");
-    cout<<"Peliculas del genero: "<<generoBuscado<<endl;
-
     for(int i=0; i<total; i++){
+
         if(_archivoP.leer(obj, i)){
-            if(obj.getEstado() && strcmp(obj.getGenero(), generoBuscado)==0){
+            if(obj.getEstado() && stricmp(obj.getGenero(), generoBuscado)==0){
                 mostrarPelicula(obj);
                 encontrado=true;
             }
@@ -354,9 +355,10 @@ void PeliculaManager::buscarPorGenero(){
 
     if(!encontrado){
         cout<<"No se encontraron peliculas de ese genero."<<endl;
+        return;
     }
 
-    system("pause");
+    //system("pause");
 }
 
 void PeliculaManager::buscarPorClasificacion(){
@@ -427,7 +429,7 @@ void PeliculaManager::modificar(){
         return;
     }
 
-    system("cls");
+    //system("cls");
     mostrarPelicula(obj);
     cout << "\nQue desea modificar?"<<endl;
     cout << "1) Pelicula"<<endl;
@@ -460,7 +462,7 @@ void PeliculaManager::modificar(){
         int opcGenero;
         cout << "Genero:"<<endl;
         cout << " 1) Accion" << endl;
-        cout << " 2) Aventura" << endl;
+        cout << " 2) Animacion" << endl;
         cout << " 3) Ciencia Ficcion" << endl;
         cout << " 4) Comedia" << endl;
         cout << " 5) Drama" << endl;
@@ -478,7 +480,7 @@ void PeliculaManager::modificar(){
 
         switch(opcGenero){
             case 1: obj.setGenero("Accion"); break;
-            case 2: obj.setGenero("Aventura"); break;
+            case 2: obj.setGenero("Animacion"); break;
             case 3: obj.setGenero("Ciencia Ficcion"); break;
             case 4: obj.setGenero("Comedia"); break;
             case 5: obj.setGenero("Drama"); break;
@@ -518,13 +520,13 @@ void PeliculaManager::modificar(){
         return;
     }
 
-    if(!_archivoP.modificar(obj, pos)){
+    if(_archivoP.modificar(obj, pos)){
         cout<<"Pelicula modificada correctamente."<<endl;
     } else {
         cout<<"Error al modificar la pelicula."<<endl;
     }
 
-    system("pause");
+    //system("pause");
 }
 
 void PeliculaManager::eliminar(){
@@ -537,8 +539,8 @@ void PeliculaManager::eliminar(){
     cout << "Ingrese el ID: ";
     id = leerEntero();
 
-    int pos=_archivoP.buscarPorID(id);
-    if (pos=-1){
+    int pos =_archivoP.buscarPorID(id);
+    if (pos == -1){
         cout<<"No se encontro la pelicula."<<endl;
         return;
     }
@@ -572,7 +574,7 @@ void PeliculaManager::eliminar(){
         cout<<"Error al eliminar."<<endl;
     }
 
-    system("pause");
+    //system("pause");
 }
 
 void PeliculaManager::restaurar(){
@@ -614,13 +616,13 @@ void PeliculaManager::restaurar(){
 
     obj.setEstado(true);
 
-    if(!_archivoP.modificar(obj, pos)){
+    if(_archivoP.modificar(obj, pos)){
         cout<<"Pelicula restaurada."<<endl;
     } else {
         cout<<"No se pudo restaurar la pelicula."<<endl;
     }
 
-    system("pause");
+   // system("pause");
 }
 
 const char* PeliculaManager::clasificacionToStr(int tipo){

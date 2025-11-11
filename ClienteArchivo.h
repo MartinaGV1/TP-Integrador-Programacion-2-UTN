@@ -1,13 +1,11 @@
 #pragma once
 #include "Cliente.h"
-#include <cstdio>
 
 class ClienteArchivo {
 private:
     char _nombreArchivo[30];
 
 public:
-
     ClienteArchivo(const char* nombreArchivo = "Clientes.dat");
 
     bool guardar(Cliente& obj);

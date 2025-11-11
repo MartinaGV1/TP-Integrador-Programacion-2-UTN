@@ -6,7 +6,7 @@ class Pelicula {
         int _idPelicula;
         int _clasificacion;
         char _nombrePelicula[50];
-        char _nombreDirector[60];
+        char _nombreDirector[50];
         char _genero[50];
         Fecha _fechaEstreno;
         bool _estado;

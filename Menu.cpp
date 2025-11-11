@@ -33,7 +33,7 @@ void Menu::ejecutar(){
                 cout<<"Opci¢n incorrecta."<<endl;
                 break;
         }
-        system("pause");
+        //system("pause");
     }
 }
 

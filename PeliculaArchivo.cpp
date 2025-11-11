@@ -63,14 +63,18 @@ int PeliculaArchivo::buscarPorID(int idPelicula){
 int PeliculaArchivo::asignarID() {
     Pelicula obj;
     int total = contarRegistros();
+
+    if (total==0) return 1;//si no hay registros le asigna ID = 1
+
     int maxID = 0;
 
+    //busca el maximo ID guardado
     for(int i = 0; i < total; i++){
         if(leer(obj, i)){
             if(obj.getIDPelicula() > maxID){
-                maxID = obj.getIDPelicula();
+                maxID = obj.getIDPelicula();//lo asigna temporalmente
             }
         }
     }
-    return maxID + 1;
+    return maxID + 1;//le asignamos el siguiente id disponible
 }
