@@ -17,6 +17,7 @@ void Menu::ejecutar(){
                 menuClientes();
                 break;
             case 2:
+                menuPeliculas();
                 break;
             case 3:
                 break;
@@ -97,5 +98,53 @@ void Menu::menuClientes(){
         }
         system("pause");
     }
+}
 
+void Menu::menuPeliculas(){
+    int opcion;
+
+    while(true){
+        system("cls");
+        cout << "================================" << endl;
+        cout << "         Menu Peliculas         " << endl;
+        cout << "================================" << endl;
+        cout << " 1. Cargar" << endl;
+        cout << " 2. Buscar" << endl;
+        cout << " 3. Modificar" << endl;
+        cout << " 4. Eliminar" << endl;
+        cout << " 5. Restaurar" << endl;
+        cout << " 6. Listar" << endl;
+        cout << " 0. Volver al Menu Principal" << endl;
+        cout << "================================" << endl;
+        cout << "Opcion: ";
+
+        opcion = leerEntero();
+
+        switch(opcion){
+            case 1:
+                _managerPelicula.cargar();
+                break;
+            case 2:
+                _managerPelicula.buscar();
+                break;
+            case 3:
+                _managerPelicula.modificar();
+                break;
+            case 4:
+                _managerPelicula.eliminar();
+                break;
+            case 5:
+                _managerPelicula.restaurar();
+                break;
+            case 6:
+                _managerPelicula.mostrarTodas();
+                break;
+            case 0:
+                return;
+            default:
+                cout << "Opcion incorrecta." << endl;
+                break;
+        }
+        system("pause");
+    }
 }

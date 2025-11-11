@@ -2,15 +2,26 @@
 #include "PeliculaArchivo.h"
 
 class PeliculaManager {
-    private:
-        PeliculaArchivo _archivoP;
+private:
+    PeliculaArchivo _archivoP;
 
-    public:
-        //void menu();
-        bool cargarPelicula(Pelicula &obj);
-        void cargar();
-        void mostrarTodas();
-        void buscarPorID();
-        void modificar();
-        void eliminar();
+    bool cargarPelicula(Pelicula &obj);
+    void mostrarPelicula(Pelicula &obj);
+
+    void buscarPorID();
+    void buscarPorNombre();
+    void buscarPorDirector();
+    void buscarPorGenero();
+    void buscarPorClasificacion();
+
+public:
+    void cargar();
+    void mostrarTodas();
+    void buscar();
+    void modificar();
+    void eliminar();
+    void restaurar();
+
+    const char* generoToStr(int tipo);
+    const char* clasificacionToStr(int tipo);
 };

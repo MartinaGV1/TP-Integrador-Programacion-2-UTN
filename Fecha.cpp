@@ -10,12 +10,21 @@ Fecha::Fecha(int dia, int mes, int anio) {
 }
 
 void Fecha::cargar() {
-    cout << "  Dia: ";
-    cin >> _dia;
-    cout << "  Mes: ";
-    cin >> _mes;
-    cout << "  Anio: ";
-    cin >> _anio;
+    do {
+        cout << "Dia: ";
+        cin >> _dia;
+
+        cout << "Mes: ";
+        cin >> _mes;
+
+        cout << "Anio: ";
+        cin >> _anio;
+
+        if (!esFechaValida()) {
+            cout << "  Fecha invalida. Intente nuevamente."<<endl;
+        }
+
+    } while (!esFechaValida());
 }
 
 void Fecha::mostrar() {
