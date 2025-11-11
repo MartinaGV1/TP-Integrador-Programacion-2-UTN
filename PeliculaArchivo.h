@@ -13,4 +13,5 @@ public:
     bool leer(Pelicula &obj, int pos);
     int contarRegistros();
     int buscarPorID(int idPelicula);
+    int asignarID();
 };
