@@ -93,14 +93,18 @@ bool ClienteManager::cargarCliente(Cliente &obj){
     obj.setEmail(email);
 
     cout<<"Telefono: ";
-    do{
-        cargarCadena(telefono, 12);
+    cargarCadena(telefono, 12);
 
-        if (!sonNumeros(telefono)){
-            cout<<"El Telefono tiene que ser numerico. Intente de nuevo: ";
+    while(!sonNumeros(telefono) || strlen(telefono) != 10) {
+
+        if (!sonNumeros(telefono)) {
+            cout << "El telefono tiene que ser numerico. Intente de nuevo: ";
         }
-
-    } while(!sonNumeros(telefono));
+        else if (strlen(telefono) != 10) {
+            cout << "El telefono tiene que tener 10 digitos. Intente de nuevo: ";
+        }
+        cargarCadena(telefono, 12);
+    }
     obj.setTelefono(telefono);
 
     obj.setEstado(true);
@@ -354,7 +358,7 @@ void ClienteManager::modificar(){
         return;
     }
 
-    system("cls");
+    //system("cls");
     mostrarCliente(obj);
 
     if(!obj.getEstado()){
