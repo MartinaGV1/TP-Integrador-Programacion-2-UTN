@@ -110,10 +110,10 @@ void PeliculaManager::mostrarTodas(){
     while(true){
         system("cls");
         cout << "================================" << endl;
-        cout << "        Listado de Peliculas    " << endl;
+        cout << "      Listado de Peliculas      " << endl;
         cout << "================================" << endl;
-        cout << "1. Mostrar activas" << endl;
-        cout << "2. Mostrar inactivas" << endl;
+        cout << "1. Activas" << endl;
+        cout << "2. Inactivas" << endl;
         cout << "3. Mostrar todas" << endl;
         cout << "0. Volver" << endl;
         cout << "================================" << endl;
@@ -239,7 +239,7 @@ void PeliculaManager::buscarPorID(){
         mostrarPelicula(obj);
 
         if (obj.getEstado() == false){
-            cout << "La pelicua se encuentra inactiva" << endl;
+            cout << "AVISO: La pelicua se encuentra inactiva." << endl;
         }
     }
     else {
@@ -409,7 +409,7 @@ void PeliculaManager::modificar(){
     cout << "================================" << endl;
     cout << "       Modificar Pelicula       " << endl;
     cout << "================================" << endl;
-    cout << "Ingrese el ID de la pelicula: ";
+    cout << "Ingrese el ID: ";
     id =leerEntero();
 
     int pos=_archivoP.buscarPorID(id);
@@ -431,97 +431,101 @@ void PeliculaManager::modificar(){
 
     //system("cls");
     mostrarPelicula(obj);
-    cout << "\nQue desea modificar?"<<endl;
-    cout << "1) Pelicula"<<endl;
-    cout << "2) Director"<<endl;
-    cout << "3) Genero"<<endl;
-    cout << "4) Clasificacion"<<endl;
-    cout << "5) Fecha de Estreno"<<endl;
-    cout << "0) Cancelar"<<endl;
-    cout << "Opcion: ";
+    cout << "\n Que desea modificar?"<<endl;
+    cout << " 1) Pelicula"<<endl;
+    cout << " 2) Director"<<endl;
+    cout << " 3) Genero"<<endl;
+    cout << " 4) Clasificacion"<<endl;
+    cout << " 5) Fecha de Estreno"<<endl;
+    cout << " 0) Cancelar"<<endl;
+    cout << " Opcion: ";
     int opcion = leerEntero();
 
     int clasificacion;
     char aux[50];
     Fecha fecha;
-
+    cout<<endl;
     switch(opcion){
-    case 1:
-        cout<<"Nuevo nombre: ";
-        cargarCadena(aux, 50);
-        obj.setNombrePelicula(aux);
-        break;
+        case 1:
+            cout<<"Nuevo nombre: ";
+            cargarCadena(aux, 50);
+            obj.setNombrePelicula(aux);
+            break;
 
-    case 2:
-        cout <<"Nuevo director: ";
-        cargarCadena(aux, 50);
-        obj.setNombreDirector(aux);
-        break;
+        case 2:
+            cout <<"Nuevo director: ";
+            cargarCadena(aux, 50);
+            obj.setNombreDirector(aux);
+            break;
 
-    case 3:{
-        int opcGenero;
-        cout << "Genero:"<<endl;
-        cout << " 1) Accion" << endl;
-        cout << " 2) Animacion" << endl;
-        cout << " 3) Ciencia Ficcion" << endl;
-        cout << " 4) Comedia" << endl;
-        cout << " 5) Drama" << endl;
-        cout << " 6) Documental" << endl;
-        cout << " 7) Musical" << endl;
-        cout << " 8) Terror" << endl;
-        cout << " 9) Otros" << endl;
-        cout << "Opcion: ";
-
-        opcGenero=leerEntero();
-        while(opcGenero<1 || opcGenero>9){
-            cout<<"Opcion invalida. Intente de nuevo: ";
-            opcGenero=leerEntero();
-        }
-
-        switch(opcGenero){
-            case 1: obj.setGenero("Accion"); break;
-            case 2: obj.setGenero("Animacion"); break;
-            case 3: obj.setGenero("Ciencia Ficcion"); break;
-            case 4: obj.setGenero("Comedia"); break;
-            case 5: obj.setGenero("Drama"); break;
-            case 6: obj.setGenero("Documental"); break;
-            case 7: obj.setGenero("Musical"); break;
-            case 8: obj.setGenero("Terror"); break;
-            case 9: obj.setGenero("Otros"); break;
-        }
-    } break;
-
-    case 4:
-        do{
-            cout << "\nClasificacion:"<<endl;;
-            cout << " 1) ATP\n";
-            cout << " 2) +13\n";
-            cout << " 3) +18\n";
+        case 3:{
+            int opcGenero;
+            cout << "Genero:"<<endl;
+            cout << " 1) Accion" << endl;
+            cout << " 2) Animacion" << endl;
+            cout << " 3) Ciencia Ficcion" << endl;
+            cout << " 4) Comedia" << endl;
+            cout << " 5) Drama" << endl;
+            cout << " 6) Documental" << endl;
+            cout << " 7) Musical" << endl;
+            cout << " 8) Terror" << endl;
+            cout << " 9) Otros" << endl;
             cout << "Opcion: ";
-            clasificacion=leerEntero();
 
-            cout << "Opcion invalida. Intente de nuevo."<<endl;
+            opcGenero=leerEntero();
+            while(opcGenero<1 || opcGenero>9){
+                cout<<"Opcion invalida. Intente de nuevo: ";
+                opcGenero=leerEntero();
+            }
 
-        }while(clasificacion <1 || clasificacion >3);
-        obj.setClasificacion(clasificacion);
+            switch(opcGenero){
+                case 1: obj.setGenero("Accion"); break;
+                case 2: obj.setGenero("Animacion"); break;
+                case 3: obj.setGenero("Ciencia Ficcion"); break;
+                case 4: obj.setGenero("Comedia"); break;
+                case 5: obj.setGenero("Drama"); break;
+                case 6: obj.setGenero("Documental"); break;
+                case 7: obj.setGenero("Musical"); break;
+                case 8: obj.setGenero("Terror"); break;
+                case 9: obj.setGenero("Otros"); break;
+            }
+        } break;
 
-        break;
+        case 4:
+            do{
+                cout << "\nClasificacion:"<<endl;
+                cout << " 1) ATP\n";
+                cout << " 2) +13\n";
+                cout << " 3) +18\n";
+                cout << "Opcion: ";
+                clasificacion = leerEntero();
 
-    case 5:
-        cout<<"Nueva fecha:"<<endl;
-        fecha.cargar();
-        obj.setFechaEstreno(fecha);
-        break;
+                if(clasificacion < 1 || clasificacion > 3){
+                    cout << "Opcion invalida. Intente de nuevo." << endl;
+                }
 
-    case 0:
-        return;
-    default:
-        cout<<"Opcion invalida."<<endl;
-        return;
+            } while(clasificacion < 1 || clasificacion > 3);
+            obj.setClasificacion(clasificacion);
+
+            break;
+
+        case 5:
+            cout<<"Nueva fecha:"<<endl;
+            fecha.cargar();
+            obj.setFechaEstreno(fecha);
+            break;
+
+        case 0:
+            return;
+        default:
+            cout<<"Opcion invalida."<<endl;
+            return;
     }
 
     if(_archivoP.modificar(obj, pos)){
-        cout<<"Pelicula modificada correctamente."<<endl;
+        cout<<"\nPelicula modificada correctamente."<<endl;
+        cout<<"Nuevos Cambios:"<<endl;
+        mostrarPelicula(obj);
     } else {
         cout<<"Error al modificar la pelicula."<<endl;
     }
@@ -610,7 +614,7 @@ void PeliculaManager::restaurar(){
     int opcion = leerEntero();
 
     if(opcion != 1){
-        cout<<"Baja cancelada."<<endl;
+        cout<<"Restauracion cancelada."<<endl;
         return;
     }
 
