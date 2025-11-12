@@ -9,13 +9,9 @@ private:
     bool cargarSala(Sala &obj);
     void mostrarSala(Sala &obj);
 
-    void buscarPorID();
-    void buscarPorNombre();
-
 public:
     void cargar();
-    void mostrarTodos();
-    void buscar();
+    void mostrarTodas();
     void modificar();
     void eliminar();
     void restaurar();

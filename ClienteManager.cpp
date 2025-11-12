@@ -260,7 +260,7 @@ void ClienteManager::buscarPorDNI(){
         mostrarCliente(obj);
 
         if (obj.getEstado() == false){
-            cout << "El cliente se encuentra inactivo" << endl;
+            cout << "El cliente se encuentra inactivo." << endl;
         }
     }
     else {
@@ -362,7 +362,7 @@ void ClienteManager::modificar(){
     mostrarCliente(obj);
 
     if(!obj.getEstado()){
-        cout <<endl<< "El cliente se encuentra inactivo." << endl;
+        cout <<endl<< "AVISO: El cliente se encuentra inactivo." << endl;
         cout << "Debe restaurarlo antes de modificar sus datos." << endl;
         return;
     }
@@ -426,13 +426,18 @@ void ClienteManager::modificar(){
         }
         case 4:
             cout<<"\nIngrese el nuevo Telefono: ";
-            do{
-                cargarCadena(aux, 12);
-                if(!sonNumeros(aux)){
-                    cout<<"El Telefono solo admite numeros. Intente de nuevo: ";
-                }
+            cargarCadena(aux, 12);
 
-            } while (!sonNumeros(aux));
+            while(!sonNumeros(aux) || strlen(aux) != 10) {
+
+                if (!sonNumeros(aux)) {
+                    cout << "El telefono tiene que ser numerico. Reintente: ";
+                }
+                else if (strlen(aux) != 10) {
+                    cout << "El telefono tiene que tener 10 digitos. Reintente: ";
+                }
+                cargarCadena(aux, 12);
+            }
             obj.setTelefono(aux);
             modificado=true;
             break;
@@ -487,7 +492,7 @@ void ClienteManager::eliminar(){
     }
 
     if (obj.getEstado()==false){
-        cout<<"El cliente ya est  inactivo."<<endl;
+        cout<<"AVISO:El cliente ya est  inactivo."<<endl;
         return;
     }
 
@@ -545,11 +550,22 @@ void ClienteManager::restaurar(){
         return;
     }
 
+    mostrarCliente(obj);
+    cout<<"¨Desea restaurar el cliente?"<<endl;
+    cout<<"1. Si"<<endl;
+    cout<<"0. No"<<endl;
+    int opcion = leerEntero();
+
+    if(opcion != 1){
+        cout<<"Restauracion cancelada."<<endl;
+        return;
+    }
+
     obj.setEstado(true);
 
     if(_archivoC.modificar(obj, pos)){
-        cout<<"Cliente: "<<obj.getDNI()<<" restaurado exitosamente."<<endl;
-    } else{
-        cout<<"No se pudo restaurar."<<endl;
+        cout<<"Cliente restaurado."<<endl;
+    } else {
+        cout<<"No se pudo restaurar la pelicula."<<endl;
     }
 }
